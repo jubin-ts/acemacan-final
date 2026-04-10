@@ -64,4 +64,4 @@ npm install
 npm install lightningcss-darwin-x64  # Replace with your platform
 ```
 
-> **Note:** A `.npmrc` file is included in this project with `optional=true` to ensure platform-specific optional dependencies are always installed.
+> **Note:** A `.npmrc` file is included in this project to ensure platform-specific optional dependencies are always properly installed.
