@@ -3,6 +3,7 @@
 import { useRef, useState, type FormEvent } from "react";
 import { useInView } from "framer-motion";
 import { MapPin, Mail, Phone, MessageCircle, Send } from "lucide-react";
+import styles from "./Contact.module.css";
 
 const offices = [
   { label: "UAE Office (HQ)", location: "Dubai, United Arab Emirates" },
@@ -17,9 +18,6 @@ const subjectOptions = [
   "Procurement",
   "Digital Marketing",
 ];
-
-const inputClasses =
-  "w-full rounded-xl bg-white px-4 py-3 text-sm outline-none transition-colors duration-200 focus:ring-2 focus:ring-[#0d7377]/10";
 
 export default function Contact() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -41,29 +39,29 @@ export default function Contact() {
     <section
       id="contact"
       ref={sectionRef}
-      className="section-padding relative overflow-hidden"
+      className={`section-padding ${styles.section}`}
       style={{ backgroundColor: "#f8f9fa" }}
     >
       {/* Background accents */}
       <div
-        className="pointer-events-none absolute -top-40 left-0 h-[500px] w-[500px] opacity-30"
+        className={styles.gradientTop}
         style={{
           background:
             "radial-gradient(circle, rgba(13,115,119,0.06) 0%, transparent 70%)",
         }}
       />
       <div
-        className="pointer-events-none absolute -bottom-40 right-0 h-[500px] w-[500px] opacity-30"
+        className={styles.gradientBottom}
         style={{
           background:
             "radial-gradient(circle, rgba(20,145,155,0.06) 0%, transparent 70%)",
         }}
       />
 
-      <div className="relative mx-auto max-w-7xl px-6 lg:px-10">
+      <div className={styles.container}>
         {/* Section header */}
         <div
-          className="mb-16 text-center"
+          className={styles.header}
           style={{
             opacity: isInView ? 1 : 0,
             transform: isInView ? "translateY(0)" : "translateY(30px)",
@@ -71,12 +69,12 @@ export default function Contact() {
           }}
         >
           <span
-            className="mb-3 inline-block text-xs font-semibold tracking-[0.25em] uppercase"
+            className={styles.subtitle}
             style={{ color: "#0d7377" }}
           >
             Contact &amp; Locations
           </span>
-          <h2 className="font-heading text-4xl font-extrabold tracking-tight sm:text-5xl">
+          <h2 className={styles.title}>
             <span
               style={{
                 background: "linear-gradient(135deg, #0d7377, #14919b)",
@@ -90,7 +88,7 @@ export default function Contact() {
         </div>
 
         {/* Two-column layout */}
-        <div className="grid items-start gap-12 lg:grid-cols-2 lg:gap-16">
+        <div className={styles.grid}>
           {/* LEFT — Contact info */}
           <div
             style={{
@@ -101,13 +99,13 @@ export default function Contact() {
             }}
           >
             <h3
-              className="font-heading text-2xl font-bold sm:text-3xl"
+              className={styles.leftTitle}
               style={{ color: "#1a1a2e" }}
             >
               Let&apos;s Build Something Great
             </h3>
             <p
-              className="font-body mt-4 text-base leading-relaxed sm:text-lg"
+              className={styles.leftDescription}
               style={{ color: "#6b7280" }}
             >
               Ready to streamline your procurement or elevate your digital
@@ -115,14 +113,14 @@ export default function Contact() {
             </p>
 
             {/* Office locations */}
-            <div className="mt-8 space-y-5">
+            <div className={styles.officesList}>
               {offices.map((office) => (
                 <div
                   key={office.label}
-                  className="flex items-start gap-4"
+                  className={styles.officeItem}
                 >
                   <div
-                    className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl"
+                    className={styles.iconBox}
                     style={{
                       backgroundColor: "rgba(13,115,119,0.1)",
                       color: "#0d7377",
@@ -132,13 +130,13 @@ export default function Contact() {
                   </div>
                   <div>
                     <p
-                      className="font-heading text-sm font-bold"
+                      className={styles.officeLabel}
                       style={{ color: "#1a1a2e" }}
                     >
                       {office.label}
                     </p>
                     <p
-                      className="font-body text-sm"
+                      className={styles.officeLocation}
                       style={{ color: "#6b7280" }}
                     >
                       {office.location}
@@ -149,13 +147,13 @@ export default function Contact() {
             </div>
 
             {/* Contact details */}
-            <div className="mt-8 space-y-4">
+            <div className={styles.contactLinks}>
               <a
                 href="mailto:info@acemacan.ae"
-                className="flex items-center gap-4"
+                className={styles.contactLink}
               >
                 <div
-                  className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl"
+                  className={styles.iconBox}
                   style={{
                     backgroundColor: "rgba(13,115,119,0.1)",
                     color: "#0d7377",
@@ -164,7 +162,7 @@ export default function Contact() {
                   <Mail size={20} strokeWidth={2} />
                 </div>
                 <span
-                  className="font-body text-sm"
+                  className={styles.contactText}
                   style={{ color: "#1a1a2e" }}
                 >
                   info@acemacan.ae
@@ -173,10 +171,10 @@ export default function Contact() {
 
               <a
                 href="tel:+971542112328"
-                className="flex items-center gap-4"
+                className={styles.contactLink}
               >
                 <div
-                  className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl"
+                  className={styles.iconBox}
                   style={{
                     backgroundColor: "rgba(13,115,119,0.1)",
                     color: "#0d7377",
@@ -185,7 +183,7 @@ export default function Contact() {
                   <Phone size={20} strokeWidth={2} />
                 </div>
                 <span
-                  className="font-body text-sm"
+                  className={styles.contactText}
                   style={{ color: "#1a1a2e" }}
                 >
                   +971 54 211 2328
@@ -198,7 +196,7 @@ export default function Contact() {
               href="https://wa.me/971542112328"
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-8 inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold text-white transition-opacity hover:opacity-90"
+              className={styles.whatsappBtn}
               style={{ backgroundColor: "#25D366" }}
             >
               <MessageCircle size={18} strokeWidth={2} />
@@ -208,7 +206,7 @@ export default function Contact() {
 
           {/* RIGHT — Contact form */}
           <div
-            className="glass-card rounded-2xl p-8 sm:p-10"
+            className={`glass-card ${styles.formCard}`}
             style={{
               opacity: isInView ? 1 : 0,
               transform: isInView ? "translateX(0)" : "translateX(40px)",
@@ -216,12 +214,12 @@ export default function Contact() {
                 "opacity 0.8s ease 0.35s, transform 0.8s ease 0.35s",
             }}
           >
-            <form onSubmit={handleSubmit} className="space-y-5">
+            <form onSubmit={handleSubmit} className={styles.form}>
               {/* Name */}
               <div>
                 <label
                   htmlFor="contact-name"
-                  className="mb-1.5 block text-xs font-semibold tracking-wide uppercase"
+                  className={styles.label}
                   style={{ color: "#1a1a2e" }}
                 >
                   Name
@@ -230,7 +228,7 @@ export default function Contact() {
                   id="contact-name"
                   type="text"
                   placeholder="Your full name"
-                  className={inputClasses}
+                  className={styles.input}
                   style={{
                     color: "#1a1a2e",
                     borderWidth: "1px",
@@ -249,7 +247,7 @@ export default function Contact() {
               <div>
                 <label
                   htmlFor="contact-email"
-                  className="mb-1.5 block text-xs font-semibold tracking-wide uppercase"
+                  className={styles.label}
                   style={{ color: "#1a1a2e" }}
                 >
                   Email
@@ -258,7 +256,7 @@ export default function Contact() {
                   id="contact-email"
                   type="email"
                   placeholder="you@company.com"
-                  className={inputClasses}
+                  className={styles.input}
                   style={{
                     color: "#1a1a2e",
                     borderWidth: "1px",
@@ -277,14 +275,14 @@ export default function Contact() {
               <div>
                 <label
                   htmlFor="contact-subject"
-                  className="mb-1.5 block text-xs font-semibold tracking-wide uppercase"
+                  className={styles.label}
                   style={{ color: "#1a1a2e" }}
                 >
                   Subject
                 </label>
                 <select
                   id="contact-subject"
-                  className={inputClasses}
+                  className={styles.input}
                   style={{
                     color: "#1a1a2e",
                     borderWidth: "1px",
@@ -312,7 +310,7 @@ export default function Contact() {
               <div>
                 <label
                   htmlFor="contact-message"
-                  className="mb-1.5 block text-xs font-semibold tracking-wide uppercase"
+                  className={styles.label}
                   style={{ color: "#1a1a2e" }}
                 >
                   Message
@@ -321,7 +319,7 @@ export default function Contact() {
                   id="contact-message"
                   rows={5}
                   placeholder="Tell us about your project…"
-                  className={`${inputClasses} resize-none`}
+                  className={`${styles.input} ${styles.textarea}`}
                   style={{
                     color: "#1a1a2e",
                     borderWidth: "1px",
@@ -339,7 +337,7 @@ export default function Contact() {
               {/* Submit */}
               <button
                 type="submit"
-                className="inline-flex w-full items-center justify-center gap-2 rounded-xl px-6 py-3.5 text-sm font-semibold text-white transition-opacity hover:opacity-90"
+                className={styles.submitBtn}
                 style={{
                   background: "linear-gradient(135deg, #0d7377, #14919b)",
                 }}
@@ -352,12 +350,12 @@ export default function Contact() {
         </div>
 
         {/* Decorative location bar */}
-        <div className="mt-20">
+        <div className={styles.mapSection}>
           <svg
             viewBox="0 0 1000 80"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
-            className="w-full"
+            className={styles.mapSvg}
             aria-label="Office locations map bar showing Dubai, Guangzhou, and Kerala"
           >
             {/* Background gradient bar */}
