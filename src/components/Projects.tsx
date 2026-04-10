@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
 
 interface Project {
@@ -44,26 +44,14 @@ const projects: Project[] = [
   },
 ];
 
-const cardVariants = {
-  hidden: { opacity: 0, scale: 0.92, y: 30 },
-  visible: {
-    opacity: 1,
-    scale: 1,
-    y: 0,
-    transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] as const },
-  },
-  exit: {
-    opacity: 0,
-    scale: 0.92,
-    y: -20,
-    transition: { duration: 0.3, ease: "easeInOut" as const },
-  },
-};
+/* cardVariants removed — cards use inline initial/animate/exit for SSR-safe rendering */
 
 export default function Projects() {
   const sectionRef = useRef<HTMLElement>(null);
   const isInView = useInView(sectionRef, { once: true, amount: 0.1 });
   const [activeFilter, setActiveFilter] = useState<string>("All");
+  const [hasMounted, setHasMounted] = useState(false);
+  useEffect(() => setHasMounted(true), []);
 
   const filtered =
     activeFilter === "All"
@@ -87,13 +75,18 @@ export default function Projects() {
 
       <div className="relative mx-auto max-w-7xl px-6 lg:px-10">
         {/* Section header */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+        <div
           className="mb-12 text-center"
+          style={{
+            opacity: isInView ? 1 : 0,
+            transform: isInView ? "translateY(0)" : "translateY(30px)",
+            transition: "opacity 0.7s cubic-bezier(0.22,1,0.36,1), transform 0.7s cubic-bezier(0.22,1,0.36,1)",
+          }}
         >
-          <span className="mb-3 inline-block text-xs font-semibold tracking-[0.25em] text-primary uppercase">
+          <span
+            className="mb-3 inline-block text-xs font-semibold tracking-[0.25em] uppercase"
+            style={{ color: "#0d7377" }}
+          >
             Case Studies
           </span>
           <h2 className="font-heading text-4xl font-extrabold tracking-tight sm:text-5xl">
@@ -107,17 +100,22 @@ export default function Projects() {
               Our Projects
             </span>
           </h2>
-          <p className="font-body mx-auto mt-4 max-w-2xl text-lg leading-relaxed text-muted">
+          <p
+            className="font-body mx-auto mt-4 max-w-2xl text-lg leading-relaxed"
+            style={{ color: "#6b7280" }}
+          >
             Delivering excellence across every sector
           </p>
-        </motion.div>
+        </div>
 
         {/* Filter buttons */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+        <div
           className="mb-12 flex flex-wrap justify-center gap-3"
+          style={{
+            opacity: isInView ? 1 : 0,
+            transform: isInView ? "translateY(0)" : "translateY(20px)",
+            transition: "opacity 0.6s cubic-bezier(0.22,1,0.36,1) 0.2s, transform 0.6s cubic-bezier(0.22,1,0.36,1) 0.2s",
+          }}
         >
           {filters.map((filter) => {
             const isActive = activeFilter === filter;
@@ -135,7 +133,7 @@ export default function Projects() {
               </button>
             );
           })}
-        </motion.div>
+        </div>
 
         {/* Project cards grid */}
         <motion.div
@@ -147,10 +145,10 @@ export default function Projects() {
               <motion.div
                 key={project.title}
                 layout
-                variants={cardVariants}
-                initial="hidden"
-                animate="visible"
-                exit="exit"
+                initial={hasMounted ? { opacity: 0, scale: 0.92 } : false}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.92 }}
+                transition={{ duration: 0.4 }}
                 className="group relative flex min-h-[320px] cursor-pointer flex-col justify-end overflow-hidden rounded-2xl"
                 style={{
                   background:
@@ -213,10 +211,16 @@ export default function Projects() {
 
                 {/* Content at bottom */}
                 <div className="relative z-10 p-6 transition-transform duration-400 group-hover:-translate-y-2">
-                  <h3 className="font-heading mb-2 text-lg font-bold text-secondary transition-colors duration-300 group-hover:text-white">
+                  <h3
+                    className="font-heading mb-2 text-lg font-bold transition-colors duration-300 group-hover:text-white"
+                    style={{ color: "#1a1a2e" }}
+                  >
                     {project.title}
                   </h3>
-                  <p className="font-body text-sm leading-relaxed text-muted transition-colors duration-300 group-hover:text-white/80">
+                  <p
+                    className="font-body text-sm leading-relaxed transition-colors duration-300 group-hover:text-white/80"
+                    style={{ color: "#6b7280" }}
+                  >
                     {project.description}
                   </p>
                 </div>
