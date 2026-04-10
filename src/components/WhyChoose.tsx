@@ -3,6 +3,7 @@
 import { useRef } from "react";
 import { useInView } from "framer-motion";
 import { Globe, Zap, Layers, Shield, Award, Users } from "lucide-react";
+import styles from "./WhyChoose.module.css";
 
 const features = [
   {
@@ -51,13 +52,13 @@ export default function WhyChoose() {
     <section
       id="why-us"
       ref={sectionRef}
-      className="relative py-24 md:py-32"
+      className={styles.section}
       style={{ backgroundColor: "#0f0f0f", color: "#ffffff" }}
     >
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className={styles.container}>
         {/* Section header */}
         <div
-          className="mb-16 text-center"
+          className={styles.header}
           style={{
             opacity: isInView ? 1 : 0,
             transform: isInView ? "translateY(0)" : "translateY(30px)",
@@ -65,7 +66,7 @@ export default function WhyChoose() {
           }}
         >
           <h2
-            className="text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl"
+            className={styles.title}
             style={{
               background: "linear-gradient(135deg, #0d7377, #14919b)",
               WebkitBackgroundClip: "text",
@@ -74,21 +75,21 @@ export default function WhyChoose() {
           >
             Why Choose ACEMACAN
           </h2>
-          <p className="mx-auto mt-4 max-w-2xl text-lg text-gray-400">
+          <p className={styles.subtitle}>
             Delivering excellence through a trusted global network and
             unwavering commitment to quality.
           </p>
         </div>
 
         {/* Feature grid */}
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <div className={styles.grid}>
           {features.map((feature, i) => {
             const Icon = feature.icon;
             const delay = i * 0.12;
             return (
               <div
                 key={feature.title}
-                className="group rounded-2xl border border-white/10 bg-white/5 p-8 transition-shadow duration-300 hover:border-white/20 hover:shadow-[0_0_30px_rgba(13,115,119,0.25)]"
+                className={styles.card}
                 style={{
                   opacity: isInView ? 1 : 0,
                   transform: isInView ? "translateY(0)" : "translateY(40px)",
@@ -97,19 +98,19 @@ export default function WhyChoose() {
               >
                 {/* Icon */}
                 <div
-                  className="mb-5 flex h-14 w-14 items-center justify-center rounded-full"
+                  className={styles.iconWrapper}
                   style={{ backgroundColor: "#0d7377" }}
                 >
-                  <Icon className="h-7 w-7 text-white" />
+                  <Icon className={styles.icon} />
                 </div>
 
                 {/* Title */}
-                <h3 className="mb-2 text-xl font-semibold text-white">
+                <h3 className={styles.featureTitle}>
                   {feature.title}
                 </h3>
 
                 {/* Description */}
-                <p className="text-sm leading-relaxed text-gray-400">
+                <p className={styles.featureDescription}>
                   {feature.description}
                 </p>
               </div>
