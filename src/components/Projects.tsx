@@ -2,6 +2,7 @@
 
 import { useRef, useState } from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
+import styles from "./Projects.module.css";
 
 interface Project {
   title: string;
@@ -60,21 +61,21 @@ export default function Projects() {
     <section
       id="projects"
       ref={sectionRef}
-      className="section-padding relative overflow-hidden bg-white"
+      className={`section-padding ${styles.section}`}
     >
       {/* Decorative background accent */}
       <div
-        className="pointer-events-none absolute -top-32 left-1/2 h-[500px] w-[700px] -translate-x-1/2 opacity-40"
+        className={styles.bgAccent}
         style={{
           background:
             "radial-gradient(ellipse, rgba(13,115,119,0.06) 0%, transparent 70%)",
         }}
       />
 
-      <div className="relative mx-auto max-w-7xl px-6 lg:px-10">
+      <div className={styles.container}>
         {/* Section header */}
         <div
-          className="mb-12 text-center"
+          className={styles.header}
           style={{
             opacity: isInView ? 1 : 0,
             transform: isInView ? "translateY(0)" : "translateY(30px)",
@@ -82,12 +83,12 @@ export default function Projects() {
           }}
         >
           <span
-            className="mb-3 inline-block text-xs font-semibold tracking-[0.25em] uppercase"
+            className={styles.subtitle}
             style={{ color: "#0d7377" }}
           >
             Case Studies
           </span>
-          <h2 className="font-heading text-4xl font-extrabold tracking-tight sm:text-5xl">
+          <h2 className={styles.title}>
             <span
               style={{
                 background: "linear-gradient(135deg, #0d7377, #14919b)",
@@ -99,7 +100,7 @@ export default function Projects() {
             </span>
           </h2>
           <p
-            className="font-body mx-auto mt-4 max-w-2xl text-lg leading-relaxed"
+            className={styles.description}
             style={{ color: "#6b7280" }}
           >
             Delivering excellence across every sector
@@ -108,7 +109,7 @@ export default function Projects() {
 
         {/* Filter buttons */}
         <div
-          className="mb-12 flex flex-wrap justify-center gap-3"
+          className={styles.filterBar}
           style={{
             opacity: isInView ? 1 : 0,
             transform: isInView ? "translateY(0)" : "translateY(20px)",
@@ -121,7 +122,7 @@ export default function Projects() {
               <button
                 key={filter}
                 onClick={() => setActiveFilter(filter)}
-                className="relative rounded-full px-5 py-2 text-sm font-semibold transition-all duration-300 focus:outline-none"
+                className={styles.filterButton}
                 style={{
                   background: isActive ? "#0d7377" : "#f1f5f9",
                   color: isActive ? "#ffffff" : "#334155",
@@ -136,7 +137,7 @@ export default function Projects() {
         {/* Project cards grid */}
         <motion.div
           layout
-          className="grid gap-8 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
+          className={styles.grid}
         >
           <AnimatePresence mode="popLayout">
             {filtered.map((project) => (
@@ -147,18 +148,18 @@ export default function Projects() {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.92 }}
                 transition={{ duration: 0.4 }}
-                className="group relative flex min-h-[320px] cursor-pointer flex-col justify-end overflow-hidden rounded-2xl"
+                className={styles.card}
                 style={{
                   background:
                     "linear-gradient(160deg, rgba(13,115,119,0.10) 0%, rgba(20,145,155,0.04) 50%, transparent 100%)",
                 }}
               >
                 {/* Hover overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/10 to-transparent opacity-0 transition-opacity duration-400 group-hover:opacity-100" />
+                <div className={styles.cardOverlay} />
 
                 {/* Gradient top border */}
                 <div
-                  className="absolute top-0 left-0 h-1 w-full"
+                  className={styles.cardBorder}
                   style={{
                     background:
                       "linear-gradient(90deg, #0d7377, #14919b, #0d7377)",
@@ -166,9 +167,9 @@ export default function Projects() {
                 />
 
                 {/* Category badge */}
-                <div className="absolute top-4 left-4 z-10">
+                <div className={styles.badgeWrapper}>
                   <span
-                    className="inline-block rounded-full px-3 py-1 text-xs font-semibold text-white shadow-sm"
+                    className={styles.badge}
                     style={{ background: "rgba(13,115,119,0.85)" }}
                   >
                     {project.category}
@@ -176,7 +177,7 @@ export default function Projects() {
                 </div>
 
                 {/* Decorative pattern */}
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-[0.04] transition-opacity duration-500 group-hover:opacity-[0.08]">
+                <div className={styles.decorPattern}>
                   <svg
                     width="200"
                     height="200"
@@ -208,15 +209,15 @@ export default function Projects() {
                 </div>
 
                 {/* Content at bottom */}
-                <div className="relative z-10 p-6 transition-transform duration-400 group-hover:-translate-y-2">
+                <div className={styles.cardContent}>
                   <h3
-                    className="font-heading mb-2 text-lg font-bold transition-colors duration-300 group-hover:text-white"
+                    className={styles.cardTitle}
                     style={{ color: "#1a1a2e" }}
                   >
                     {project.title}
                   </h3>
                   <p
-                    className="font-body text-sm leading-relaxed transition-colors duration-300 group-hover:text-white/80"
+                    className={styles.cardDescription}
                     style={{ color: "#6b7280" }}
                   >
                     {project.description}
@@ -224,7 +225,7 @@ export default function Projects() {
                 </div>
 
                 {/* Hover zoom effect via inner scale layer */}
-                <div className="pointer-events-none absolute inset-0 transition-transform duration-500 ease-out group-hover:scale-105" />
+                <div className={styles.cardZoom} />
               </motion.div>
             ))}
           </AnimatePresence>
