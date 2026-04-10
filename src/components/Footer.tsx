@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import { motion, useInView } from "framer-motion";
+import { useInView } from "framer-motion";
 import { MapPin, Mail, Phone } from "lucide-react";
 
 const quickLinks = [
@@ -19,11 +19,6 @@ const sectors = [
   "Digital Marketing",
 ];
 
-const fadeIn = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0 },
-};
-
 export default function Footer() {
   const ref = useRef<HTMLElement>(null);
   const inView = useInView(ref, { once: true, amount: 0.2 });
@@ -39,12 +34,13 @@ export default function Footer() {
 
   return (
     <footer ref={ref} style={{ backgroundColor: "#0f0f0f" }}>
-      <motion.div
+      <div
         className="mx-auto max-w-7xl px-6 pt-16 pb-8"
-        initial="hidden"
-        animate={inView ? "visible" : "hidden"}
-        variants={fadeIn}
-        transition={{ duration: 0.6, ease: "easeOut" }}
+        style={{
+          opacity: inView ? 1 : 0,
+          transform: inView ? 'translateY(0)' : 'translateY(20px)',
+          transition: 'opacity 0.6s ease, transform 0.6s ease',
+        }}
       >
         {/* Four-column grid */}
         <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4">
@@ -144,7 +140,7 @@ export default function Footer() {
           </p>
           <p className="text-xs text-white/40">Designed with excellence</p>
         </div>
-      </motion.div>
+      </div>
     </footer>
   );
 }
