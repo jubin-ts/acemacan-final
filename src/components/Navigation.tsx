@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
+import styles from "./Navigation.module.css";
 
 const navLinks = [
   { label: "About", href: "#about" },
@@ -22,7 +23,6 @@ export default function Navigation() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Lock body scroll when mobile menu is open
   useEffect(() => {
     document.body.style.overflow = mobileOpen ? "hidden" : "";
     return () => {
@@ -43,40 +43,32 @@ export default function Navigation() {
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-          scrolled
-            ? "backdrop-blur-xl shadow-[0_1px_30px_rgba(0,0,0,0.12)]"
-            : "bg-transparent"
-        }`}
+        className={`${styles.header} ${scrolled ? styles.headerScrolled : ""}`}
         style={scrolled ? { backgroundColor: "rgba(15,15,15,0.8)" } : undefined}
       >
         <nav
-          className={`mx-auto flex max-w-7xl items-center justify-between px-6 transition-all duration-500 lg:px-10 ${
-            scrolled ? "py-3" : "py-5"
-          }`}
+          className={`${styles.nav} ${scrolled ? styles.navScrolled : ""}`}
         >
-          {/* Logo */}
           <a
             href="#"
             onClick={(e) => {
               e.preventDefault();
               window.scrollTo({ top: 0, behavior: "smooth" });
             }}
-            className="relative z-10 select-none"
+            className={styles.logoLink}
           >
-            <span className="gradient-text text-2xl font-extrabold tracking-tight">
+            <span className={`gradient-text ${styles.logoText}`}>
               ACEMACAN
             </span>
           </a>
 
-          {/* Desktop Links */}
-          <ul className="hidden items-center gap-1 md:flex">
+          <ul className={styles.desktopLinks}>
             {navLinks.map((link) => (
               <li key={link.href}>
                 <a
                   href={link.href}
                   onClick={(e) => handleLinkClick(e, link.href)}
-                  className="relative px-4 py-2 text-sm font-medium text-white/70 transition-colors duration-300 hover:text-white"
+                  className={styles.desktopLink}
                 >
                   {link.label}
                 </a>
@@ -84,20 +76,18 @@ export default function Navigation() {
             ))}
           </ul>
 
-          {/* Desktop CTA */}
           <a
             href="#contact"
             onClick={(e) => handleLinkClick(e, "#contact")}
-            className="hidden rounded-full bg-primary px-6 py-2.5 text-sm font-semibold text-white shadow-lg shadow-primary/25 transition-all duration-300 hover:bg-primary-light hover:shadow-primary-light/30 md:inline-flex"
+            className={styles.desktopCta}
           >
             Get in Touch
           </a>
 
-          {/* Mobile Toggle */}
           <button
             type="button"
             onClick={() => setMobileOpen((prev) => !prev)}
-            className="relative z-10 flex h-10 w-10 items-center justify-center rounded-lg text-white transition-colors hover:bg-white/10 md:hidden"
+            className={styles.mobileToggle}
             aria-label={mobileOpen ? "Close menu" : "Open menu"}
           >
             <AnimatePresence mode="wait" initial={false}>
@@ -127,7 +117,6 @@ export default function Navigation() {
         </nav>
       </header>
 
-      {/* Mobile Menu Overlay */}
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
@@ -136,14 +125,14 @@ export default function Navigation() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-40 bg-dark/95 backdrop-blur-2xl md:hidden"
+            className={styles.mobileOverlay}
           >
             <motion.nav
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 20 }}
               transition={{ duration: 0.4, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-              className="flex h-full flex-col items-center justify-center gap-2"
+              className={styles.mobileNav}
             >
               {navLinks.map((link, i) => (
                 <motion.a
@@ -158,7 +147,7 @@ export default function Navigation() {
                     delay: 0.15 + i * 0.06,
                     ease: [0.22, 1, 0.36, 1],
                   }}
-                  className="px-6 py-3 text-2xl font-semibold text-white/80 transition-colors duration-300 hover:text-primary-light"
+                  className={styles.mobileLink}
                 >
                   {link.label}
                 </motion.a>
@@ -170,7 +159,7 @@ export default function Navigation() {
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.4, delay: 0.5 }}
-                className="mt-6 rounded-full bg-primary px-8 py-3 text-lg font-semibold text-white shadow-lg shadow-primary/25 transition-all duration-300 hover:bg-primary-light"
+                className={styles.mobileCta}
               >
                 Get in Touch
               </motion.a>
