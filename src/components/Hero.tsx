@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useState, useEffect } from "react";
+import { useCallback } from "react";
 import { motion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 
@@ -27,12 +27,6 @@ const particles = [
 ];
 
 export default function Hero() {
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
   const handleCTAClick = useCallback(
     (e: React.MouseEvent<HTMLAnchorElement>) => {
       e.preventDefault();
@@ -66,9 +60,8 @@ export default function Hero() {
         }}
       />
 
-      {/* Floating particles - only render after mount to avoid SSR mismatch */}
-      {mounted &&
-        particles.map((p, i) => (
+      {/* Floating particles */}
+      {particles.map((p, i) => (
           <motion.div
             key={i}
             className="pointer-events-none absolute rounded-full"
@@ -96,9 +89,6 @@ export default function Hero() {
       {/* Content - visible by default, enhanced with animation */}
       <div
         className="relative z-10 mx-auto max-w-5xl px-6 text-center"
-        style={{
-          animation: mounted ? undefined : "none",
-        }}
       >
         {/* Tagline */}
         <motion.h1

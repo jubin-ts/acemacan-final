@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState } from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
 
 interface Project {
@@ -50,8 +50,6 @@ export default function Projects() {
   const sectionRef = useRef<HTMLElement>(null);
   const isInView = useInView(sectionRef, { once: true, amount: 0.1 });
   const [activeFilter, setActiveFilter] = useState<string>("All");
-  const [hasMounted, setHasMounted] = useState(false);
-  useEffect(() => setHasMounted(true), []);
 
   const filtered =
     activeFilter === "All"
@@ -145,7 +143,7 @@ export default function Projects() {
               <motion.div
                 key={project.title}
                 layout
-                initial={hasMounted ? { opacity: 0, scale: 0.92 } : false}
+                initial={false}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.92 }}
                 transition={{ duration: 0.4 }}
