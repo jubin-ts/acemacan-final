@@ -3,6 +3,7 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { Globe, Zap, Package, Users } from "lucide-react";
+import styles from "./About.module.css";
 
 const features = [
   {
@@ -30,10 +31,10 @@ const features = [
 /* SVG globe with animated supply-chain arcs */
 function SupplyChainGlobe() {
   return (
-    <div className="relative mx-auto aspect-square w-full max-w-[420px]">
+    <div className={styles.globeWrapper}>
       {/* Soft glow behind globe */}
       <div
-        className="absolute inset-0 rounded-full"
+        className={styles.globeGlow}
         style={{
           background:
             "radial-gradient(circle at 50% 50%, rgba(13,115,119,0.12) 0%, transparent 70%)",
@@ -44,7 +45,7 @@ function SupplyChainGlobe() {
         viewBox="0 0 400 400"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
-        className="h-full w-full"
+        className={styles.globeSvg}
         aria-label="Animated globe showing supply chain connections"
       >
         {/* Globe outline */}
@@ -255,22 +256,22 @@ export default function About() {
     <section
       id="about"
       ref={sectionRef}
-      className="relative overflow-hidden"
+      className={styles.section}
       style={{ backgroundColor: "#ffffff", padding: "120px 0" }}
     >
       {/* Subtle background accent */}
       <div
-        className="pointer-events-none absolute -top-40 right-0 h-[500px] w-[500px] opacity-30"
+        className={styles.bgAccent}
         style={{
           background:
             "radial-gradient(circle, rgba(13,115,119,0.06) 0%, transparent 70%)",
         }}
       />
 
-      <div className="relative mx-auto max-w-7xl px-6 lg:px-10">
+      <div className={styles.container}>
         {/* Section header */}
         <div
-          className="mb-16 text-center"
+          className={styles.header}
           style={{
             opacity: isInView ? 1 : 0,
             transform: isInView ? "translateY(0)" : "translateY(30px)",
@@ -278,13 +279,13 @@ export default function About() {
           }}
         >
           <span
-            className="mb-3 inline-block text-xs font-semibold tracking-[0.25em] uppercase"
+            className={styles.subtitle}
             style={{ color: "#0d7377" }}
           >
             Who We Are
           </span>
           <h2
-            className="text-4xl font-extrabold tracking-tight sm:text-5xl"
+            className={styles.title}
             style={{ fontFamily: "'Inter', system-ui, sans-serif" }}
           >
             <span
@@ -301,7 +302,7 @@ export default function About() {
         </div>
 
         {/* Two-column layout: text + globe */}
-        <div className="grid items-center gap-16 lg:grid-cols-2">
+        <div className={styles.grid}>
           {/* Left — text content */}
           <div
             style={{
@@ -311,7 +312,7 @@ export default function About() {
             }}
           >
             <p
-              className="text-lg leading-relaxed sm:text-xl"
+              className={styles.description}
               style={{ color: "#6b7280", fontFamily: "'Inter', system-ui, sans-serif" }}
             >
               At ACEMACAN, we connect businesses with trusted global suppliers
@@ -322,23 +323,23 @@ export default function About() {
             </p>
 
             {/* Accent divider */}
-            <div className="my-8 flex items-center gap-3">
-              <div className="h-px flex-1" style={{ background: "linear-gradient(to right, rgba(13,115,119,0.3), transparent)" }} />
+            <div className={styles.divider}>
+              <div className={styles.dividerLine} style={{ background: "linear-gradient(to right, rgba(13,115,119,0.3), transparent)" }} />
               <span
-                className="text-xs font-semibold tracking-widest uppercase"
+                className={styles.dividerLabel}
                 style={{ color: "rgba(13,115,119,0.5)" }}
               >
                 Our Edge
               </span>
-              <div className="h-px flex-1" style={{ background: "linear-gradient(to left, rgba(13,115,119,0.3), transparent)" }} />
+              <div className={styles.dividerLine} style={{ background: "linear-gradient(to left, rgba(13,115,119,0.3), transparent)" }} />
             </div>
 
             {/* Feature cards */}
-            <div className="grid gap-4 sm:grid-cols-2">
+            <div className={styles.featuresGrid}>
               {features.map((feat, i) => (
                 <div
                   key={feat.title}
-                  className="group rounded-2xl p-5 hover-lift"
+                  className={`${styles.featureCard} hover-lift`}
                   style={{
                     background: "rgba(255,255,255,0.7)",
                     backdropFilter: "blur(20px)",
@@ -349,19 +350,19 @@ export default function About() {
                   }}
                 >
                   <div
-                    className="mb-3 flex h-10 w-10 items-center justify-center rounded-xl transition-colors duration-300 group-hover:text-white"
+                    className={styles.iconWrapper}
                     style={{ backgroundColor: "rgba(13,115,119,0.1)", color: "#0d7377" }}
                   >
                     <feat.icon size={20} strokeWidth={2} />
                   </div>
                   <h3
-                    className="mb-1 text-sm font-bold"
+                    className={styles.featureTitle}
                     style={{ color: "#1a1a2e", fontFamily: "'Inter', system-ui, sans-serif" }}
                   >
                     {feat.title}
                   </h3>
                   <p
-                    className="text-xs leading-relaxed"
+                    className={styles.featureDescription}
                     style={{ color: "#6b7280" }}
                   >
                     {feat.description}
@@ -372,7 +373,7 @@ export default function About() {
           </div>
 
           {/* Right — animated globe */}
-          <div className="order-first lg:order-last">
+          <div className={styles.globeColumn}>
             <SupplyChainGlobe />
           </div>
         </div>

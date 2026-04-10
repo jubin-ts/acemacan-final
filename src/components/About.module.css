@@ -1,0 +1,191 @@
+/* ── SupplyChainGlobe ── */
+
+.globeWrapper {
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+  aspect-ratio: 1 / 1;
+  width: 100%;
+  max-width: 420px;
+}
+
+.globeGlow {
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+}
+
+.globeSvg {
+  height: 100%;
+  width: 100%;
+}
+
+/* ── About section ── */
+
+.section {
+  position: relative;
+  overflow: hidden;
+}
+
+.bgAccent {
+  pointer-events: none;
+  position: absolute;
+  top: -10rem;
+  right: 0;
+  height: 500px;
+  width: 500px;
+  opacity: 0.3;
+}
+
+.container {
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 80rem;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+@media (min-width: 1024px) {
+  .container {
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
+  }
+}
+
+.header {
+  margin-bottom: 4rem;
+  text-align: center;
+}
+
+.subtitle {
+  margin-bottom: 0.75rem;
+  display: inline-block;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+}
+
+.title {
+  font-size: 2.25rem;
+  line-height: 2.5rem;
+  font-weight: 800;
+  letter-spacing: -0.025em;
+}
+
+@media (min-width: 640px) {
+  .title {
+    font-size: 3rem;
+    line-height: 1;
+  }
+}
+
+/* ── Two-column grid ── */
+
+.grid {
+  display: grid;
+  align-items: center;
+  gap: 4rem;
+}
+
+@media (min-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* ── Description text ── */
+
+.description {
+  font-size: 1.125rem;
+  line-height: 1.625;
+}
+
+@media (min-width: 640px) {
+  .description {
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+  }
+}
+
+/* ── Accent divider ── */
+
+.divider {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.dividerLine {
+  height: 1px;
+  flex: 1 1 0%;
+}
+
+.dividerLabel {
+  font-size: 0.75rem;
+  line-height: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+/* ── Feature cards grid ── */
+
+.featuresGrid {
+  display: grid;
+  gap: 1rem;
+}
+
+@media (min-width: 640px) {
+  .featuresGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.featureCard {
+  border-radius: 1rem;
+  padding: 1.25rem;
+}
+
+.iconWrapper {
+  margin-bottom: 0.75rem;
+  display: flex;
+  height: 2.5rem;
+  width: 2.5rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.75rem;
+  transition: color 0.3s;
+}
+
+.featureCard:hover .iconWrapper {
+  color: #fff;
+}
+
+.featureTitle {
+  margin-bottom: 0.25rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 700;
+}
+
+.featureDescription {
+  font-size: 0.75rem;
+  line-height: 1.625;
+}
+
+/* ── Globe column ── */
+
+.globeColumn {
+  order: -1;
+}
+
+@media (min-width: 1024px) {
+  .globeColumn {
+    order: 1;
+  }
+}
