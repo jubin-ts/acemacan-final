@@ -35,10 +35,23 @@ export default function SmoothScroll({ children }: SmoothScrollProps) {
             exit={{ opacity: 0 }}
             onClick={scrollToTop}
             aria-label="Scroll to top"
-            className="fixed bottom-6 right-6 z-50 flex h-12 w-12 items-center justify-center rounded-full shadow-lg cursor-pointer"
-            style={{ backgroundColor: "#0d7377" }}
+            style={{
+              position: "fixed",
+              bottom: 24,
+              right: 24,
+              zIndex: 50,
+              display: "flex",
+              height: 48,
+              width: 48,
+              alignItems: "center",
+              justifyContent: "center",
+              borderRadius: "50%",
+              boxShadow: "0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -4px rgba(0,0,0,0.1)",
+              cursor: "pointer",
+              backgroundColor: "#0d7377",
+            }}
           >
-            <ArrowUp className="h-5 w-5 text-white" />
+            <ArrowUp style={{ height: 20, width: 20, color: "white" }} />
           </motion.button>
         )}
       </AnimatePresence>
