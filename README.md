@@ -17,6 +17,10 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
+## Styling
+
+This project uses **CSS Modules** for component styling — no external CSS framework required. Each component has its own `.module.css` file for scoped, maintainable styles.
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:
@@ -31,26 +35,3 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-
-## Troubleshooting
-
-### `Error: Cannot find module '../lightningcss.darwin-x64.node'`
-
-This error occurs when the platform-specific native binary for `lightningcss` (used by Tailwind CSS v4) is missing.
-
-**Fix — run these exact commands in your project folder:**
-
-```bash
-rm -rf node_modules package-lock.json .next
-npm install
-npm run dev
-```
-
-**Important:** Make sure you are in the correct project directory before running these commands. Check with `pwd`.
-
-If the postinstall check prints `✓ lightningcss native binary OK`, the fix worked. If it fails, check that:
-- You are using Node.js v18+ (`node -v`)
-- You are not copying `node_modules` from a different machine or OS
-- Your npm cache is not corrupted — run `npm cache clean --force` and try again
-
-> **Note:** `lightningcss` is listed as a direct dependency in this project to ensure npm always installs the correct platform-specific binary for your OS.
