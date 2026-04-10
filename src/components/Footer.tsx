@@ -3,6 +3,7 @@
 import { useRef } from "react";
 import { useInView } from "framer-motion";
 import { MapPin, Mail, Phone } from "lucide-react";
+import styles from "./Footer.module.css";
 
 const quickLinks = [
   { label: "About", href: "#about" },
@@ -35,19 +36,17 @@ export default function Footer() {
   return (
     <footer ref={ref} style={{ backgroundColor: "#0f0f0f" }}>
       <div
-        className="mx-auto max-w-7xl px-6 pt-16 pb-8"
+        className={styles.container}
         style={{
           opacity: inView ? 1 : 0,
           transform: inView ? 'translateY(0)' : 'translateY(20px)',
           transition: 'opacity 0.6s ease, transform 0.6s ease',
         }}
       >
-        {/* Four-column grid */}
-        <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4">
-          {/* Column 1: Brand */}
+        <div className={styles.grid}>
           <div>
             <span
-              className="text-2xl font-bold tracking-wider"
+              className={styles.brandName}
               style={{
                 background: "linear-gradient(135deg, #0d7377, #14919b)",
                 WebkitBackgroundClip: "text",
@@ -56,26 +55,25 @@ export default function Footer() {
             >
               ACEMACAN
             </span>
-            <p className="mt-3 text-sm font-medium text-white/80">
+            <p className={styles.tagline}>
               Diverse Solutions. One Standard.
             </p>
-            <p className="mt-2 text-sm leading-relaxed text-white/50">
+            <p className={styles.description}>
               Connecting businesses with trusted global suppliers.
             </p>
           </div>
 
-          {/* Column 2: Quick Links */}
           <div>
-            <h4 className="mb-4 text-sm font-semibold tracking-widest text-white/90 uppercase">
+            <h4 className={styles.sectionTitle}>
               Quick Links
             </h4>
-            <ul className="space-y-2">
+            <ul className={styles.linkList}>
               {quickLinks.map((link) => (
                 <li key={link.href}>
                   <a
                     href={link.href}
                     onClick={(e) => handleSmoothScroll(e, link.href)}
-                    className="text-sm text-white/50 transition-colors duration-200 hover:text-white"
+                    className={styles.link}
                   >
                     {link.label}
                   </a>
@@ -84,16 +82,15 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Column 3: Our Sectors */}
           <div>
-            <h4 className="mb-4 text-sm font-semibold tracking-widest text-white/90 uppercase">
+            <h4 className={styles.sectionTitle}>
               Our Sectors
             </h4>
-            <ul className="space-y-2">
+            <ul className={styles.linkList}>
               {sectors.map((sector) => (
                 <li
                   key={sector}
-                  className="text-sm text-white/50"
+                  className={styles.sectorItem}
                 >
                   {sector}
                 </li>
@@ -101,30 +98,29 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Column 4: Contact Info */}
           <div>
-            <h4 className="mb-4 text-sm font-semibold tracking-widest text-white/90 uppercase">
+            <h4 className={styles.sectionTitle}>
               Contact Info
             </h4>
-            <ul className="space-y-3">
-              <li className="flex items-start gap-2 text-sm text-white/50">
-                <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-white/40" />
+            <ul className={styles.contactList}>
+              <li className={styles.contactItem}>
+                <MapPin className={styles.contactIcon} />
                 Dubai, UAE
               </li>
-              <li className="flex items-start gap-2 text-sm text-white/50">
-                <Mail className="mt-0.5 h-4 w-4 shrink-0 text-white/40" />
+              <li className={styles.contactItem}>
+                <Mail className={styles.contactIcon} />
                 <a
                   href="mailto:info@acemacan.ae"
-                  className="transition-colors duration-200 hover:text-white"
+                  className={styles.contactLink}
                 >
                   info@acemacan.ae
                 </a>
               </li>
-              <li className="flex items-start gap-2 text-sm text-white/50">
-                <Phone className="mt-0.5 h-4 w-4 shrink-0 text-white/40" />
+              <li className={styles.contactItem}>
+                <Phone className={styles.contactIcon} />
                 <a
                   href="tel:+971542112328"
-                  className="transition-colors duration-200 hover:text-white"
+                  className={styles.contactLink}
                 >
                   +971 54 211 2328
                 </a>
@@ -133,12 +129,11 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Bottom bar */}
-        <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-6 sm:flex-row">
-          <p className="text-xs text-white/40">
+        <div className={styles.bottomBar}>
+          <p className={styles.smallText}>
             © 2024 ACEMACAN FZ LLC. All rights reserved.
           </p>
-          <p className="text-xs text-white/40">Designed with excellence</p>
+          <p className={styles.smallText}>Designed with excellence</p>
         </div>
       </div>
     </footer>
