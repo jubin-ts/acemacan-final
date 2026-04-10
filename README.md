@@ -36,13 +36,21 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 
 ### `Error: Cannot find module '../lightningcss.darwin-x64.node'`
 
-This error occurs when the platform-specific native binary for `lightningcss` (used by Tailwind CSS v4) is missing. This typically happens when `node_modules` were copied from a different platform or the folder is corrupted.
+This error occurs when the platform-specific native binary for `lightningcss` (used by Tailwind CSS v4) is missing.
 
-**Fix:** Delete `node_modules` and the lock file, then reinstall:
+**Fix — run these exact commands in your project folder:**
 
 ```bash
-rm -rf node_modules package-lock.json
+rm -rf node_modules package-lock.json .next
 npm install
+npm run dev
 ```
 
-> **Note:** `lightningcss` is listed as a direct dependency in this project (not just a transitive optional dep) to ensure npm always installs it along with the correct platform-specific binary for your OS.
+**Important:** Make sure you are in the correct project directory before running these commands. Check with `pwd`.
+
+If the postinstall check prints `✓ lightningcss native binary OK`, the fix worked. If it fails, check that:
+- You are using Node.js v18+ (`node -v`)
+- You are not copying `node_modules` from a different machine or OS
+- Your npm cache is not corrupted — run `npm cache clean --force` and try again
+
+> **Note:** `lightningcss` is listed as a direct dependency in this project to ensure npm always installs the correct platform-specific binary for your OS.
