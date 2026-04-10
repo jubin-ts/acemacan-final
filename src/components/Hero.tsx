@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback } from "react";
+import { useCallback, useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 
@@ -26,26 +26,13 @@ const particles = [
   { x: 82, y: 18, size: 2, delay: 0.7, duration: 6.8 },
 ];
 
-const containerVariants = {
-  hidden: {},
-  visible: {
-    transition: {
-      staggerChildren: 0.15,
-      delayChildren: 0.3,
-    },
-  },
-};
-
-const fadeUpVariants = {
-  hidden: { opacity: 0, y: 30 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] as const },
-  },
-};
-
 export default function Hero() {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   const handleCTAClick = useCallback(
     (e: React.MouseEvent<HTMLAnchorElement>) => {
       e.preventDefault();
@@ -57,7 +44,8 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      className="relative flex min-h-screen items-center justify-center overflow-hidden bg-dark"
+      className="relative flex min-h-screen items-center justify-center overflow-hidden"
+      style={{ backgroundColor: "#0f0f0f" }}
     >
       {/* Animated grid pattern */}
       <div
@@ -78,84 +66,97 @@ export default function Hero() {
         }}
       />
 
-      {/* Floating particles */}
-      {particles.map((p, i) => (
-        <motion.div
-          key={i}
-          className="pointer-events-none absolute rounded-full bg-primary-light"
-          style={{
-            left: `${p.x}%`,
-            top: `${p.y}%`,
-            width: p.size,
-            height: p.size,
-          }}
-          initial={{ opacity: 0 }}
-          animate={{
-            opacity: [0, 0.4, 0.15, 0.4, 0],
-            y: [0, -30, -15, -35, 0],
-          }}
-          transition={{
-            duration: p.duration,
-            delay: p.delay,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        />
-      ))}
+      {/* Floating particles - only render after mount to avoid SSR mismatch */}
+      {mounted &&
+        particles.map((p, i) => (
+          <motion.div
+            key={i}
+            className="pointer-events-none absolute rounded-full"
+            style={{
+              left: `${p.x}%`,
+              top: `${p.y}%`,
+              width: p.size,
+              height: p.size,
+              backgroundColor: "#14919b",
+            }}
+            initial={{ opacity: 0 }}
+            animate={{
+              opacity: [0, 0.4, 0.15, 0.4, 0],
+              y: [0, -30, -15, -35, 0],
+            }}
+            transition={{
+              duration: p.duration,
+              delay: p.delay,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          />
+        ))}
 
-      {/* Content */}
-      <motion.div
+      {/* Content - visible by default, enhanced with animation */}
+      <div
         className="relative z-10 mx-auto max-w-5xl px-6 text-center"
-        variants={containerVariants}
-        initial="hidden"
-        animate="visible"
+        style={{
+          animation: mounted ? undefined : "none",
+        }}
       >
         {/* Tagline */}
         <motion.h1
-          variants={fadeUpVariants}
-          className="font-heading text-5xl leading-tight font-extrabold tracking-tight text-white sm:text-6xl lg:text-7xl"
+          initial={false}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+          className="text-5xl leading-tight font-extrabold tracking-tight text-white sm:text-6xl lg:text-7xl"
+          style={{ fontFamily: "'Inter', system-ui, sans-serif" }}
         >
-          <span className="gradient-text">Diverse Solutions.</span>
+          <span
+            style={{
+              background: "linear-gradient(135deg, #0d7377, #14919b)",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+              backgroundClip: "text",
+            }}
+          >
+            Diverse Solutions.
+          </span>
           <br />
           <span className="text-white">One Standard.</span>
         </motion.h1>
 
         {/* Subline */}
-        <motion.p
-          variants={fadeUpVariants}
-          className="font-body mx-auto mt-6 max-w-2xl text-lg text-white/60 sm:text-xl lg:text-2xl"
+        <p
+          className="mx-auto mt-6 max-w-2xl text-lg sm:text-xl lg:text-2xl"
+          style={{ color: "rgba(255,255,255,0.6)", fontFamily: "'Inter', system-ui, sans-serif" }}
         >
           Engineering trust. Delivering excellence.
-        </motion.p>
+        </p>
 
         {/* Regions */}
-        <motion.p
-          variants={fadeUpVariants}
-          className="font-body mt-4 text-sm tracking-widest text-white/35 uppercase sm:text-base"
+        <p
+          className="mt-4 text-sm tracking-widest uppercase sm:text-base"
+          style={{ color: "rgba(255,255,255,0.35)" }}
         >
           Operating across UAE &bull; China &bull; India
-        </motion.p>
+        </p>
 
         {/* CTA Button */}
-        <motion.div variants={fadeUpVariants} className="mt-10">
+        <div className="mt-10">
           <a
             href="#sectors"
             onClick={handleCTAClick}
-            className="inline-flex items-center gap-2 rounded-full bg-primary px-8 py-3.5 text-sm font-semibold text-white shadow-lg shadow-primary/25 transition-all duration-300 hover:bg-primary-light hover:shadow-primary-light/30 sm:text-base"
+            className="inline-flex items-center gap-2 rounded-full px-8 py-3.5 text-sm font-semibold text-white transition-all duration-300 hover:opacity-90 sm:text-base"
+            style={{
+              backgroundColor: "#0d7377",
+              boxShadow: "0 10px 40px rgba(13,115,119,0.25)",
+            }}
           >
             Explore Our Services
           </a>
-        </motion.div>
-      </motion.div>
+        </div>
+      </div>
 
       {/* Scroll indicator */}
-      <motion.div
-        className="absolute bottom-8 left-1/2 -translate-x-1/2"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.8, duration: 0.6 }}
-      >
-        <motion.a
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2">
+        <a
           href="#about"
           onClick={(e) => {
             e.preventDefault();
@@ -163,15 +164,14 @@ export default function Hero() {
               .querySelector("#about")
               ?.scrollIntoView({ behavior: "smooth" });
           }}
-          animate={{ y: [0, 8, 0] }}
-          transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
-          className="flex flex-col items-center gap-1 text-white/30 transition-colors duration-300 hover:text-white/60"
+          className="flex flex-col items-center gap-1 transition-colors duration-300"
+          style={{ color: "rgba(255,255,255,0.3)" }}
           aria-label="Scroll down"
         >
           <span className="text-[10px] tracking-[0.2em] uppercase">Scroll</span>
           <ChevronDown size={20} />
-        </motion.a>
-      </motion.div>
+        </a>
+      </div>
     </section>
   );
 }

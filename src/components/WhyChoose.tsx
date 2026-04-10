@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import { motion, useInView } from "framer-motion";
+import { useInView } from "framer-motion";
 import { Globe, Zap, Layers, Shield, Award, Users } from "lucide-react";
 
 const features = [
@@ -43,27 +43,6 @@ const features = [
   },
 ];
 
-const containerVariants = {
-  hidden: {},
-  visible: {
-    transition: {
-      staggerChildren: 0.12,
-    },
-  },
-};
-
-const cardVariants = {
-  hidden: { opacity: 0, y: 40 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.7,
-      ease: [0.22, 1, 0.36, 1] as const,
-    },
-  },
-};
-
 export default function WhyChoose() {
   const sectionRef = useRef<HTMLElement>(null);
   const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
@@ -77,11 +56,13 @@ export default function WhyChoose() {
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Section header */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+        <div
           className="mb-16 text-center"
+          style={{
+            opacity: isInView ? 1 : 0,
+            transform: isInView ? "translateY(0)" : "translateY(30px)",
+            transition: "opacity 0.8s ease, transform 0.8s ease",
+          }}
         >
           <h2
             className="text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl"
@@ -97,24 +78,21 @@ export default function WhyChoose() {
             Delivering excellence through a trusted global network and
             unwavering commitment to quality.
           </p>
-        </motion.div>
+        </div>
 
         {/* Feature grid */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
-          className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3"
-        >
-          {features.map((feature) => {
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {features.map((feature, i) => {
             const Icon = feature.icon;
+            const delay = i * 0.12;
             return (
-              <motion.div
+              <div
                 key={feature.title}
-                variants={cardVariants}
-                className="group rounded-2xl border border-white/10 bg-white/5 p-8 transition-all duration-300 hover:border-white/20"
-                whileHover={{
-                  boxShadow: "0 0 30px rgba(13,115,119,0.25)",
+                className="group rounded-2xl border border-white/10 bg-white/5 p-8 transition-shadow duration-300 hover:border-white/20 hover:shadow-[0_0_30px_rgba(13,115,119,0.25)]"
+                style={{
+                  opacity: isInView ? 1 : 0,
+                  transform: isInView ? "translateY(0)" : "translateY(40px)",
+                  transition: `opacity 0.7s ease ${delay}s, transform 0.7s ease ${delay}s`,
                 }}
               >
                 {/* Icon */}
@@ -134,10 +112,10 @@ export default function WhyChoose() {
                 <p className="text-sm leading-relaxed text-gray-400">
                   {feature.description}
                 </p>
-              </motion.div>
+              </div>
             );
           })}
-        </motion.div>
+        </div>
       </div>
     </section>
   );

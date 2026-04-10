@@ -42,15 +42,13 @@ export default function Navigation() {
 
   return (
     <>
-      <motion.header
-        initial={{ y: -100 }}
-        animate={{ y: 0 }}
-        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+      <header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
           scrolled
-            ? "bg-dark/80 backdrop-blur-xl shadow-[0_1px_30px_rgba(0,0,0,0.12)]"
+            ? "backdrop-blur-xl shadow-[0_1px_30px_rgba(0,0,0,0.12)]"
             : "bg-transparent"
         }`}
+        style={scrolled ? { backgroundColor: "rgba(15,15,15,0.8)" } : undefined}
       >
         <nav
           className={`mx-auto flex max-w-7xl items-center justify-between px-6 transition-all duration-500 lg:px-10 ${
@@ -127,7 +125,7 @@ export default function Navigation() {
             </AnimatePresence>
           </button>
         </nav>
-      </motion.header>
+      </header>
 
       {/* Mobile Menu Overlay */}
       <AnimatePresence>

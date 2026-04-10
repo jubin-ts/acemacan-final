@@ -27,38 +27,10 @@ const features = [
   },
 ];
 
-const fadeUp = {
-  hidden: { opacity: 0, y: 40 },
-  visible: (i: number) => ({
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.7,
-      delay: i * 0.12,
-      ease: [0.22, 1, 0.36, 1] as const,
-    },
-  }),
-};
-
-const scaleIn = {
-  hidden: { opacity: 0, scale: 0.85 },
-  visible: {
-    opacity: 1,
-    scale: 1,
-    transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] as const },
-  },
-};
-
 /* SVG globe with animated supply-chain arcs */
 function SupplyChainGlobe() {
   return (
-    <motion.div
-      variants={scaleIn}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, amount: 0.3 }}
-      className="relative mx-auto aspect-square w-full max-w-[420px]"
-    >
+    <div className="relative mx-auto aspect-square w-full max-w-[420px]">
       {/* Soft glow behind globe */}
       <div
         className="absolute inset-0 rounded-full"
@@ -149,43 +121,27 @@ function SupplyChainGlobe() {
           />
         </motion.g>
 
-        {/* Supply-chain arc: UAE → China */}
-        <motion.path
+        {/* Supply-chain arcs (visible by default) */}
+        <path
           d="M 155 145 Q 200 80 280 160"
           stroke="url(#arcGrad1)"
           strokeWidth="2"
           strokeLinecap="round"
           fill="none"
-          initial={{ pathLength: 0, opacity: 0 }}
-          whileInView={{ pathLength: 1, opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 1.6, delay: 0.4, ease: "easeInOut" }}
         />
-
-        {/* Supply-chain arc: China → India */}
-        <motion.path
+        <path
           d="M 280 160 Q 310 230 230 270"
           stroke="url(#arcGrad2)"
           strokeWidth="2"
           strokeLinecap="round"
           fill="none"
-          initial={{ pathLength: 0, opacity: 0 }}
-          whileInView={{ pathLength: 1, opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 1.6, delay: 0.8, ease: "easeInOut" }}
         />
-
-        {/* Supply-chain arc: India → UAE */}
-        <motion.path
+        <path
           d="M 230 270 Q 140 280 155 145"
           stroke="url(#arcGrad3)"
           strokeWidth="2"
           strokeLinecap="round"
           fill="none"
-          initial={{ pathLength: 0, opacity: 0 }}
-          whileInView={{ pathLength: 1, opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 1.6, delay: 1.2, ease: "easeInOut" }}
         />
 
         {/* Location nodes */}
@@ -212,19 +168,11 @@ function SupplyChainGlobe() {
               }}
             />
             {/* Core dot */}
-            <motion.circle
+            <circle
               cx={node.cx}
               cy={node.cy}
               r="5"
               fill="#0d7377"
-              initial={{ scale: 0 }}
-              whileInView={{ scale: 1 }}
-              viewport={{ once: true }}
-              transition={{
-                duration: 0.5,
-                delay: 0.3 + i * 0.2,
-                ease: [0.22, 1, 0.36, 1],
-              }}
             />
             {/* Inner highlight */}
             <circle cx={node.cx - 1} cy={node.cy - 1} r="2" fill="#14919b" />
@@ -295,7 +243,7 @@ function SupplyChainGlobe() {
           </linearGradient>
         </defs>
       </svg>
-    </motion.div>
+    </div>
   );
 }
 
@@ -307,7 +255,8 @@ export default function About() {
     <section
       id="about"
       ref={sectionRef}
-      className="section-padding relative overflow-hidden bg-white"
+      className="relative overflow-hidden"
+      style={{ backgroundColor: "#ffffff", padding: "120px 0" }}
     >
       {/* Subtle background accent */}
       <div
@@ -320,29 +269,51 @@ export default function About() {
 
       <div className="relative mx-auto max-w-7xl px-6 lg:px-10">
         {/* Section header */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+        <div
           className="mb-16 text-center"
+          style={{
+            opacity: isInView ? 1 : 0,
+            transform: isInView ? "translateY(0)" : "translateY(30px)",
+            transition: "opacity 0.7s ease, transform 0.7s ease",
+          }}
         >
-          <span className="mb-3 inline-block text-xs font-semibold tracking-[0.25em] text-primary uppercase">
+          <span
+            className="mb-3 inline-block text-xs font-semibold tracking-[0.25em] uppercase"
+            style={{ color: "#0d7377" }}
+          >
             Who We Are
           </span>
-          <h2 className="font-heading text-4xl font-extrabold tracking-tight sm:text-5xl">
-            <span className="gradient-text">About ACEMACAN</span>
+          <h2
+            className="text-4xl font-extrabold tracking-tight sm:text-5xl"
+            style={{ fontFamily: "'Inter', system-ui, sans-serif" }}
+          >
+            <span
+              style={{
+                background: "linear-gradient(135deg, #0d7377, #14919b)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                backgroundClip: "text",
+              }}
+            >
+              About ACEMACAN
+            </span>
           </h2>
-        </motion.div>
+        </div>
 
         {/* Two-column layout: text + globe */}
         <div className="grid items-center gap-16 lg:grid-cols-2">
           {/* Left — text content */}
-          <motion.div
-            initial={{ opacity: 0, x: -40 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+          <div
+            style={{
+              opacity: isInView ? 1 : 0,
+              transform: isInView ? "translateX(0)" : "translateX(-40px)",
+              transition: "opacity 0.8s ease 0.2s, transform 0.8s ease 0.2s",
+            }}
           >
-            <p className="font-body text-lg leading-relaxed text-muted sm:text-xl">
+            <p
+              className="text-lg leading-relaxed sm:text-xl"
+              style={{ color: "#6b7280", fontFamily: "'Inter', system-ui, sans-serif" }}
+            >
               At ACEMACAN, we connect businesses with trusted global suppliers
               and deliver high-quality products with unmatched speed and
               reliability. Operating across UAE, China, and India, we enable
@@ -352,38 +323,53 @@ export default function About() {
 
             {/* Accent divider */}
             <div className="my-8 flex items-center gap-3">
-              <div className="h-px flex-1 bg-gradient-to-r from-primary/30 to-transparent" />
-              <span className="text-xs font-semibold tracking-widest text-primary/50 uppercase">
+              <div className="h-px flex-1" style={{ background: "linear-gradient(to right, rgba(13,115,119,0.3), transparent)" }} />
+              <span
+                className="text-xs font-semibold tracking-widest uppercase"
+                style={{ color: "rgba(13,115,119,0.5)" }}
+              >
                 Our Edge
               </span>
-              <div className="h-px flex-1 bg-gradient-to-l from-primary/30 to-transparent" />
+              <div className="h-px flex-1" style={{ background: "linear-gradient(to left, rgba(13,115,119,0.3), transparent)" }} />
             </div>
 
             {/* Feature cards */}
             <div className="grid gap-4 sm:grid-cols-2">
               {features.map((feat, i) => (
-                <motion.div
+                <div
                   key={feat.title}
-                  custom={i}
-                  variants={fadeUp}
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true, amount: 0.3 }}
-                  className="glass-card hover-lift group rounded-2xl p-5"
+                  className="group rounded-2xl p-5 hover-lift"
+                  style={{
+                    background: "rgba(255,255,255,0.7)",
+                    backdropFilter: "blur(20px)",
+                    border: "1px solid rgba(13,115,119,0.1)",
+                    opacity: isInView ? 1 : 0,
+                    transform: isInView ? "translateY(0)" : "translateY(40px)",
+                    transition: `opacity 0.7s ease ${i * 0.12}s, transform 0.7s ease ${i * 0.12}s`,
+                  }}
                 >
-                  <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 text-primary transition-colors duration-300 group-hover:bg-primary group-hover:text-white">
+                  <div
+                    className="mb-3 flex h-10 w-10 items-center justify-center rounded-xl transition-colors duration-300 group-hover:text-white"
+                    style={{ backgroundColor: "rgba(13,115,119,0.1)", color: "#0d7377" }}
+                  >
                     <feat.icon size={20} strokeWidth={2} />
                   </div>
-                  <h3 className="font-heading mb-1 text-sm font-bold text-secondary">
+                  <h3
+                    className="mb-1 text-sm font-bold"
+                    style={{ color: "#1a1a2e", fontFamily: "'Inter', system-ui, sans-serif" }}
+                  >
                     {feat.title}
                   </h3>
-                  <p className="font-body text-xs leading-relaxed text-muted">
+                  <p
+                    className="text-xs leading-relaxed"
+                    style={{ color: "#6b7280" }}
+                  >
                     {feat.description}
                   </p>
-                </motion.div>
+                </div>
               ))}
             </div>
-          </motion.div>
+          </div>
 
           {/* Right — animated globe */}
           <div className="order-first lg:order-last">
