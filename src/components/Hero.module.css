@@ -1,0 +1,151 @@
+.section {
+  position: relative;
+  display: flex;
+  min-height: 100vh;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.gridOverlay {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  opacity: 0.04;
+}
+
+.radialOverlay {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+}
+
+.particle {
+  pointer-events: none;
+  position: absolute;
+  border-radius: 9999px;
+}
+
+.content {
+  position: relative;
+  z-index: 10;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 64rem;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  text-align: center;
+}
+
+.heading {
+  font-size: 3rem;
+  line-height: 1.1;
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  color: #ffffff;
+}
+
+@media (min-width: 640px) {
+  .heading {
+    font-size: 3.75rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .heading {
+    font-size: 4.5rem;
+  }
+}
+
+.headingWhite {
+  color: #ffffff;
+}
+
+.subline {
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 1.5rem;
+  max-width: 42rem;
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+}
+
+@media (min-width: 640px) {
+  .subline {
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .subline {
+    font-size: 1.5rem;
+    line-height: 2rem;
+  }
+}
+
+.regions {
+  margin-top: 1rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+@media (min-width: 640px) {
+  .regions {
+    font-size: 1rem;
+    line-height: 1.5rem;
+  }
+}
+
+.ctaWrapper {
+  margin-top: 2.5rem;
+}
+
+.ctaButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 9999px;
+  padding: 0.875rem 2rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 600;
+  color: #ffffff;
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.ctaButton:hover {
+  opacity: 0.9;
+}
+
+@media (min-width: 640px) {
+  .ctaButton {
+    font-size: 1rem;
+    line-height: 1.5rem;
+  }
+}
+
+.scrollIndicator {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.scrollLink {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  transition: color 0.3s ease;
+  text-decoration: none;
+}
+
+.scrollText {
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}

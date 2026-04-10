@@ -3,6 +3,7 @@
 import { useCallback } from "react";
 import { motion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
+import styles from "./Hero.module.css";
 
 // Deterministic particle positions to avoid hydration mismatches
 const particles = [
@@ -38,12 +39,12 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      className="relative flex min-h-screen items-center justify-center overflow-hidden"
+      className={styles.section}
       style={{ backgroundColor: "#0f0f0f" }}
     >
       {/* Animated grid pattern */}
       <div
-        className="pointer-events-none absolute inset-0 opacity-[0.04]"
+        className={styles.gridOverlay}
         style={{
           backgroundImage:
             "linear-gradient(rgba(255,255,255,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.5) 1px, transparent 1px)",
@@ -53,7 +54,7 @@ export default function Hero() {
 
       {/* Radial gradient overlay */}
       <div
-        className="pointer-events-none absolute inset-0"
+        className={styles.radialOverlay}
         style={{
           background:
             "radial-gradient(ellipse 80% 60% at 50% 40%, rgba(13,115,119,0.08) 0%, transparent 70%)",
@@ -64,7 +65,7 @@ export default function Hero() {
       {particles.map((p, i) => (
           <motion.div
             key={i}
-            className="pointer-events-none absolute rounded-full"
+            className={styles.particle}
             style={{
               left: `${p.x}%`,
               top: `${p.y}%`,
@@ -88,14 +89,14 @@ export default function Hero() {
 
       {/* Content - visible by default, enhanced with animation */}
       <div
-        className="relative z-10 mx-auto max-w-5xl px-6 text-center"
+        className={styles.content}
       >
         {/* Tagline */}
         <motion.h1
           initial={false}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-          className="text-5xl leading-tight font-extrabold tracking-tight text-white sm:text-6xl lg:text-7xl"
+          className={styles.heading}
           style={{ fontFamily: "'Inter', system-ui, sans-serif" }}
         >
           <span
@@ -109,12 +110,12 @@ export default function Hero() {
             Diverse Solutions.
           </span>
           <br />
-          <span className="text-white">One Standard.</span>
+          <span className={styles.headingWhite}>One Standard.</span>
         </motion.h1>
 
         {/* Subline */}
         <p
-          className="mx-auto mt-6 max-w-2xl text-lg sm:text-xl lg:text-2xl"
+          className={styles.subline}
           style={{ color: "rgba(255,255,255,0.6)", fontFamily: "'Inter', system-ui, sans-serif" }}
         >
           Engineering trust. Delivering excellence.
@@ -122,18 +123,18 @@ export default function Hero() {
 
         {/* Regions */}
         <p
-          className="mt-4 text-sm tracking-widest uppercase sm:text-base"
+          className={styles.regions}
           style={{ color: "rgba(255,255,255,0.35)" }}
         >
           Operating across UAE &bull; China &bull; India
         </p>
 
         {/* CTA Button */}
-        <div className="mt-10">
+        <div className={styles.ctaWrapper}>
           <a
             href="#sectors"
             onClick={handleCTAClick}
-            className="inline-flex items-center gap-2 rounded-full px-8 py-3.5 text-sm font-semibold text-white transition-all duration-300 hover:opacity-90 sm:text-base"
+            className={styles.ctaButton}
             style={{
               backgroundColor: "#0d7377",
               boxShadow: "0 10px 40px rgba(13,115,119,0.25)",
@@ -145,7 +146,7 @@ export default function Hero() {
       </div>
 
       {/* Scroll indicator */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2">
+      <div className={styles.scrollIndicator}>
         <a
           href="#about"
           onClick={(e) => {
@@ -154,11 +155,11 @@ export default function Hero() {
               .querySelector("#about")
               ?.scrollIntoView({ behavior: "smooth" });
           }}
-          className="flex flex-col items-center gap-1 transition-colors duration-300"
+          className={styles.scrollLink}
           style={{ color: "rgba(255,255,255,0.3)" }}
           aria-label="Scroll down"
         >
-          <span className="text-[10px] tracking-[0.2em] uppercase">Scroll</span>
+          <span className={styles.scrollText}>Scroll</span>
           <ChevronDown size={20} />
         </a>
       </div>
